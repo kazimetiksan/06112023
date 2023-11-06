@@ -1,18 +1,33 @@
+import Button from "./Button"
+
 const Row = ({
-    item
+    item,
+    index,
+    onUpdate,
+    onRemove
 }) => {
 
-    // const userInfo = {
-    //     firstName: "Hakan",
-    //     lastName: "Demir",
-    //     age: 32
-    //   }
-      
-    // const {firstName} = userInfo // destructure
-
-
     return (
-        <div>{item.firstName} {item.lastName}</div>
+        <tr>
+            <td>{index+1}</td>
+            <td>{item.firstName}</td>
+            <td>{item.lastName}</td>
+            <td>{item.age}</td>
+            <td>
+                <Button 
+                    variant="primary" 
+                    title="Güncelle" 
+                    onClick={onUpdate}
+                />
+            </td>
+            <td>
+                <Button 
+                    variant="danger" 
+                    title="Sil" 
+                    onClick={onRemove}
+                />
+            </td>
+        </tr>
     )
 }
 

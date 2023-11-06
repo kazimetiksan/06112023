@@ -8,6 +8,11 @@ import {
   useEffect
 } from 'react'
 
+import {
+  Table,
+  Form
+} from 'react-bootstrap'
+
 // React Component1
 const App = () => {
 
@@ -15,17 +20,21 @@ const App = () => {
     firstName: "Hakan",
     lastName: "Demir",
     age: 32
-  },{
+  }, {
     firstName: "Mehmet",
     lastName: "Şahin",
     age: 32
   }])
 
-  const [userInfo, setUserInfo] = useState({
+  const userInfoTemplate = {
     firstName: "",
     lastName: "",
     age: ""
-  })
+  }
+
+  const [userInfo, setUserInfo] = useState(userInfoTemplate)
+
+  const [updateIndex, setUpdateIndex] = useState(-1)
 
   useEffect(() => {
 
@@ -36,7 +45,7 @@ const App = () => {
   useEffect(() => {
 
     console.log('constructor')
-    
+
   }, [])
 
   const setUserInput = (key, value) => {
@@ -47,21 +56,61 @@ const App = () => {
     })
   }
 
+  const resetForm = () => {
+
+    setUpdateIndex(-1)
+    setUserInfo(userInfoTemplate)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <div>
-          {
-            userList.map((item, index) => {
+          <Table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                userList.map((item, index) => {
 
-              return (
-                <Row key={index} item={item} />
-              )
-            })
-          }
+                  return (
+                    <Row 
+                      key={index} 
+                      item={item} 
+                      index={index} 
+                      onUpdate={() => {
+
+                        const item = userList[index]
+                        setUserInfo(item)
+
+                        setUpdateIndex(index)
+                      }}
+                      onRemove={() => {
+                        console.log('silinecek satır', index)
+
+                        const newList = userList.filter((item, rIndex) => {
+                          return index !== rIndex
+                        })
+
+                        setUserList(newList)
+                      }}
+                    />
+                  )
+                })
+              }
+            </tbody>
+          </Table>
         </div>
         <div>
-          <input placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
+          <Form.Control placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
 
             // const firstName = e.target.value
             // setUserInfo({
@@ -72,22 +121,43 @@ const App = () => {
             setUserInput('firstName', e.target.value)
 
           }} />
-          <input placeholder='Soyad' value={userInfo.lastName} onChange={(e) => {
+          <Form.Control placeholder='Soyad' value={userInfo.lastName} onChange={(e) => {
 
             setUserInput('lastName', e.target.value)
 
           }} />
-          <input placeholder='Yaş' value={userInfo.age} onChange={(e) => {
+          <Form.Control placeholder='Yaş' value={userInfo.age} onChange={(e) => {
 
             setUserInput('age', e.target.value)
 
           }} />
         </div>
         <div>
-          <Button title="Ekle" onClick={() => {
+          <Button variant='success' title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
-            const newList = [...userList, userInfo]
-            setUserList(newList)
+            if (updateIndex === -1) {
+
+              // EKLE
+              const newList = [...userList, userInfo]
+              setUserList(newList)
+  
+            } else {
+
+              // GÜNCELLE
+
+              const newList = userList.map((item, index) => {
+
+                if (updateIndex === index) {
+                  return userInfo
+                }
+
+                return item
+              })
+
+              setUserList(newList)
+            }
+
+            resetForm()
 
           }} />
         </div>
