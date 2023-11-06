@@ -23,7 +23,6 @@ const App = () => {
     return userInfo.lastName
   }
 
-  const isLoggedIn = true
 
   const userList = [
     {
@@ -44,8 +43,10 @@ const App = () => {
   ]
 
   // let number = 10
+  // const isLoggedIn = true
 
   const [number, setNumber] = useState(10)
+  const [isLoggedIn, setLoggedIn] = useState(false)
 
   return (
     <div className="App">
@@ -70,6 +71,11 @@ const App = () => {
             <div>Oturum Kapalı</div>
           )
         }
+        <div>
+          <Button title={isLoggedIn ? 'Logout' : 'Login'} onClick={() => {
+            setLoggedIn(!isLoggedIn)
+          }} />
+        </div>
          <div style={{
           marginTop: 20
          }}>
