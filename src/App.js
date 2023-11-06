@@ -11,11 +11,15 @@ import {
 // React Component
 const App = () => {
 
-  const userList = [{
+  const [userList, setUserList] = useState([{
     firstName: "Hakan",
     lastName: "Demir",
     age: 32
-  }]
+  },{
+    firstName: "Mehmet",
+    lastName: "Şahin",
+    age: 32
+  }])
 
   const [userInfo, setUserInfo] = useState({
     firstName: "",
@@ -28,6 +32,14 @@ const App = () => {
     console.log('effect', userInfo)
   }, [userInfo])
 
+  const setUserInput = (key, value) => {
+
+    setUserInfo({
+      ...userInfo,
+      [key]: value
+    })
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -36,7 +48,7 @@ const App = () => {
             userList.map((item, index) => {
 
               return (
-                <Row item={item} />
+                <Row key={index} item={item} />
               )
             })
           }
@@ -44,34 +56,31 @@ const App = () => {
         <div>
           <input placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
 
-            const firstName = e.target.value
-            setUserInfo({
-              ...userInfo,
-              firstName
-            })
+            // const firstName = e.target.value
+            // setUserInfo({
+            //   ...userInfo,
+            //   firstName
+            // })
+
+            setUserInput('firstName', e.target.value)
 
           }} />
           <input placeholder='Soyad' value={userInfo.lastName} onChange={(e) => {
 
-            const lastName = e.target.value
-            setUserInfo({
-              ...userInfo,
-              lastName
-            })
+            setUserInput('lastName', e.target.value)
 
           }} />
           <input placeholder='Yaş' value={userInfo.age} onChange={(e) => {
-            
-            const age = e.target.value
-            setUserInfo({
-              ...userInfo,
-              age
-            })
-            
+
+            setUserInput('age', e.target.value)
+
           }} />
         </div>
         <div>
           <Button title="Ekle" onClick={() => {
+
+            const newList = [...userList, userInfo]
+            setUserList(newList)
 
           }} />
         </div>

@@ -12,7 +12,7 @@ const Row = ({
 
 
     return (
-        <div>{item.firstName}</div>
+        <div>{item.firstName} {item.lastName}</div>
     )
 }
 
