@@ -4,89 +4,75 @@ import Button from './Button';
 import Row from './Row';
 
 import {
-  useState
+  useState,
+  useEffect
 } from 'react'
 
 // React Component
 const App = () => {
 
-  // code
-
-  const userInfo = {
+  const userList = [{
     firstName: "Hakan",
     lastName: "Demir",
     age: 32
-  }
+  }]
 
-  const getLastName = () => {
+  const [userInfo, setUserInfo] = useState({
+    firstName: "",
+    lastName: "",
+    age: ""
+  })
 
-    return userInfo.lastName
-  }
+  useEffect(() => {
 
-
-  const userList = [
-    {
-      firstName: "Hakan",
-      lastName: "Demir",
-      age: 32
-    },
-    {
-      firstName: "Elif",
-      lastName: "Yavuz",
-      age: 34
-    },
-    {
-      firstName: "Mehmet",
-      lastName: "Şahin",
-      age: 36
-    }
-  ]
-
-  // let number = 10
-  // const isLoggedIn = true
-
-  const [number, setNumber] = useState(10)
-  const [isLoggedIn, setLoggedIn] = useState(false)
+    console.log('effect', userInfo)
+  }, [userInfo])
 
   return (
     <div className="App">
       <header className="App-header">
         <div>
-        {
-          userList.map((item, index) => {
+          {
+            userList.map((item, index) => {
 
-            return (
-              // <div>{item.firstName} {item.lastName} {item.age > 33 ? "Yaş Uygun" : "Yaş Uygun Değil"}</div>
-              <Row item={item} />
-            )
-          })
-        }
-
+              return (
+                <Row item={item} />
+              )
+            })
+          }
         </div>
-        <div>{userInfo.firstName} isimli kullanıcının yaşı {userInfo.age > 30 ? "Uygun" : "Uygun Değildir"}</div>
-        {
-          isLoggedIn ? (
-            <div>Oturum Açık</div>
-          ) : (
-            <div>Oturum Kapalı</div>
-          )
-        }
         <div>
-          <Button title={isLoggedIn ? 'Logout' : 'Login'} onClick={() => {
-            setLoggedIn(!isLoggedIn)
+          <input placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
+
+            const firstName = e.target.value
+            setUserInfo({
+              ...userInfo,
+              firstName
+            })
+
+          }} />
+          <input placeholder='Soyad' value={userInfo.lastName} onChange={(e) => {
+
+            const lastName = e.target.value
+            setUserInfo({
+              ...userInfo,
+              lastName
+            })
+
+          }} />
+          <input placeholder='Yaş' value={userInfo.age} onChange={(e) => {
+            
+            const age = e.target.value
+            setUserInfo({
+              ...userInfo,
+              age
+            })
+            
           }} />
         </div>
-         <div style={{
-          marginTop: 20
-         }}>
-          <div>Anlık Değer: {number}</div>
-          <Button title="Increase" onClick={() => {
-            setNumber(number+1)
-            console.log('anlık değer', number)
-          }} />
-          <Button title="Decrease" onClick={() => {
-            setNumber(number-1)
-            console.log('anlık değer', number)
+        <div>
+          <Button title="Ekle" onClick={() => {
+
           }} />
         </div>
       </header>

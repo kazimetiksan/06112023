@@ -2,8 +2,6 @@ const Row = ({
     item
 }) => {
 
-    console.log('props', item)
-
     // const userInfo = {
     //     firstName: "Hakan",
     //     lastName: "Demir",
