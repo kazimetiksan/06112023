@@ -3,6 +3,10 @@ import './App.css';
 import Button from './Button';
 import Row from './Row';
 
+import {
+  useState
+} from 'react'
+
 // React Component
 const App = () => {
 
@@ -39,6 +43,10 @@ const App = () => {
     }
   ]
 
+  // let number = 10
+
+  const [number, setNumber] = useState(10)
+
   return (
     <div className="App">
       <header className="App-header">
@@ -62,7 +70,19 @@ const App = () => {
             <div>Oturum Kapalı</div>
           )
         }
-        <Button />
+         <div style={{
+          marginTop: 20
+         }}>
+          <div>Anlık Değer: {number}</div>
+          <Button title="Increase" onClick={() => {
+            setNumber(number+1)
+            console.log('anlık değer', number)
+          }} />
+          <Button title="Decrease" onClick={() => {
+            setNumber(number-1)
+            console.log('anlık değer', number)
+          }} />
+        </div>
       </header>
     </div>
   );
