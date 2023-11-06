@@ -30,7 +30,14 @@ const App = () => {
   useEffect(() => {
 
     console.log('effect', userInfo)
+
   }, [userInfo])
+
+  useEffect(() => {
+
+    console.log('constructor')
+    
+  }, [])
 
   const setUserInput = (key, value) => {
 
