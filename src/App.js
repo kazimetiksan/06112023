@@ -10,25 +10,18 @@ import {
 
 import {
   Table,
-  Form
+  Form,
+  Spinner
 } from 'react-bootstrap'
 
-import Modal from './Modal';  
+import Modal from './Modal';
 
 import axios from 'axios';
 
 // React Component1
 const App = () => {
 
-  const [userList, setUserList] = useState([{
-    firstName: "Hakan",
-    lastName: "Demir",
-    age: 32
-  }, {
-    firstName: "Mehmet",
-    lastName: "Şahin",
-    age: 32
-  }])
+  const [userList, setUserList] = useState([])
 
   const userInfoTemplate = {
     firstName: "",
@@ -42,6 +35,8 @@ const App = () => {
   const [removeIndex, setRemoveIndex] = useState(-1)
 
   const [modalOn, setModalOn] = useState(false)
+
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
 
@@ -67,14 +62,19 @@ const App = () => {
 
     const url = 'https://reactpm.azurewebsites.net/api/users'
 
+    setLoading(true)
+
     axios.get(url)
-    // PROMISE
-    .then((response) => {
-      console.log('response', response.data)
-    })
-    .catch((error) => {
-      console.log('error', error)
-    })
+      // PROMISE
+      .then((response) => {
+        console.log('response', response.data)
+
+        setUserList(response.data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.log('error', error)
+      })
   }
 
   useEffect(() => {
@@ -128,6 +128,13 @@ const App = () => {
             </tbody>
           </Table>
         </div>
+        {
+          isLoading && (
+            <div>
+              <Spinner animation="border" variant="primary" />
+            </div>
+          )
+        }
         <div>
           <Form.Control placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
 
