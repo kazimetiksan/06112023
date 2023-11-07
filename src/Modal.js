@@ -2,21 +2,24 @@ import {
     Modal as RBModal
 } from 'react-bootstrap'
 
-const Modal = () => {
+import Button from './Button'
+
+const Modal = ({
+    title,
+    body,
+    show,
+    handleClose
+}) => {
 
     return (
         <RBModal show={show} onHide={handleClose}>
             <RBModal.Header closeButton>
-                <RBModal.Title>Modal heading</RBModal.Title>
+                <RBModal.Title>{title}</RBModal.Title>
             </RBModal.Header>
-            <RBModal.Body>Woohoo, you are reading this text in a modal!</RBModal.Body>
+            <RBModal.Body>{body}</RBModal.Body>
             <RBModal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
+                <Button title="Close" variant="secondary" onClick={handleClose} />
+                <Button title="Confirm" variant="danger" onClick={handleClose} />
             </RBModal.Footer>
         </RBModal>
     )
