@@ -185,16 +185,31 @@ const App = () => {
 
               // GÜNCELLE
 
-              const newList = userList.map((item, index) => {
+              const url = `https://reactpm.azurewebsites.net/api/user/${userList[updateIndex]?._id}`
+              axios.patch(url, userInfo)
+                .then((response) => {
 
-                if (updateIndex === index) {
-                  return userInfo
-                }
+                  console.log('updated', response.data)
 
-                return item
-              })
+                  const newList = userList.map((item, index) => {
 
-              setUserList(newList)
+                    if (updateIndex === index) {
+                      return response.data
+                    }
+
+                    return item
+                  })
+
+                  setUserList(newList)
+
+                  setLoading(false)
+
+                })
+                .catch((error) => {
+                  console.log('error', error)
+                })
+
+
             }
 
             resetForm()
