@@ -67,7 +67,7 @@ const App = () => {
     setUserInfo(userInfoTemplate)
   }
 
-  
+
 
   return (
     <div className="App">
@@ -167,24 +167,34 @@ const App = () => {
         </div>
       </header>
       <Modal
-        title="Örnek Başlık"
-        body="Örnek Body"
+        title="Emin misin ?"
+        body={`${userList[removeIndex]?.firstName} isimli kişi silinecektir.`}
         show={modalOn}
-        handleClose={(isConfirmed) => {
+        handleConfirm={() => {
 
-          console.log('confirmed', isConfirmed)
+          const newList = userList.filter((item, rIndex) => {
+            return removeIndex !== rIndex
+          })
+
+          setUserList(newList)
 
           setModalOn(false)
-
-          if (isConfirmed) {
-            const newList = userList.filter((item, rIndex) => {
-              return removeIndex !== rIndex
-            })
-  
-            setUserList(newList)
-          }
-
           setRemoveIndex(-1)
+
+        }}
+        handleClose={() => {
+
+          setModalOn(false)
+          setRemoveIndex(-1)
+
+          // if (isConfirmed) {
+          //   const newList = userList.filter((item, rIndex) => {
+          //     return removeIndex !== rIndex
+          //   })
+
+          //   setUserList(newList)
+          // }
+
 
         }}
       />
