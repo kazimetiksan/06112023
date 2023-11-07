@@ -4,7 +4,8 @@ const Row = ({
     item,
     index,
     onUpdate,
-    onRemove
+    onRemove,
+    onView
 }) => {
 
     return (
@@ -25,6 +26,13 @@ const Row = ({
                     variant="danger" 
                     title="Sil" 
                     onClick={onRemove}
+                />
+            </td>
+            <td>
+                <Button 
+                    variant="warning" 
+                    title="Detaya Git" 
+                    onClick={onView}
                 />
             </td>
         </tr>
