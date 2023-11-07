@@ -164,8 +164,22 @@ const App = () => {
             if (updateIndex === -1) {
 
               // EKLE
-              const newList = [...userList, userInfo]
-              setUserList(newList)
+
+              setLoading(true)
+
+              const url = 'https://reactpm.azurewebsites.net/api/user'
+              axios.post(url, userInfo)
+                .then((response) => {
+
+                  const newList = [...userList, response.data]
+                  setUserList(newList)
+
+                  setLoading(false)
+
+                })
+                .catch((error) => {
+                  console.log('error', error)
+                })
 
             } else {
 
