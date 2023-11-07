@@ -22,11 +22,17 @@ import {
     useNavigate
 } from 'react-router-dom'
 
+import {
+    useSelector // getter
+} from 'react-redux'
+
 const Home = () => {
+
+    const userList = useSelector(state => state.users)
 
     const navigate = useNavigate()
 
-    const [userList, setUserList] = useState([])
+    // const [userList, setUserList] = useState([])
 
     const userInfoTemplate = {
         firstName: "",
@@ -74,7 +80,7 @@ const Home = () => {
             .then((response) => {
                 console.log('response', response.data)
 
-                setUserList(response.data)
+                // setUserList(response.data)
                 setLoading(false)
             })
             .catch((error) => {
@@ -185,7 +191,7 @@ const Home = () => {
                                 .then((response) => {
 
                                     const newList = [...userList, response.data]
-                                    setUserList(newList)
+                                    // setUserList(newList)
 
                                     setLoading(false)
 
@@ -213,7 +219,7 @@ const Home = () => {
                                         return item
                                     })
 
-                                    setUserList(newList)
+                                    // setUserList(newList)
 
                                     setLoading(false)
 
@@ -250,7 +256,7 @@ const Home = () => {
                                     return removeIndex !== rIndex
                                 })
 
-                                setUserList(newList)
+                                // setUserList(newList)
                             }
 
                             setRemoveIndex(-1)
