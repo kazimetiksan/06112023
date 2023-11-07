@@ -13,6 +13,8 @@ import {
   Form
 } from 'react-bootstrap'
 
+import Modal from './Modal';
+
 // React Component1
 const App = () => {
 
@@ -35,6 +37,9 @@ const App = () => {
   const [userInfo, setUserInfo] = useState(userInfoTemplate)
 
   const [updateIndex, setUpdateIndex] = useState(-1)
+  const [removeIndex, setRemoveIndex] = useState(-1)
+
+  const [modalOn, setModalOn] = useState(false)
 
   useEffect(() => {
 
@@ -62,6 +67,8 @@ const App = () => {
     setUserInfo(userInfoTemplate)
   }
 
+  
+
   return (
     <div className="App">
       <header className="App-header">
@@ -82,10 +89,10 @@ const App = () => {
                 userList.map((item, index) => {
 
                   return (
-                    <Row 
-                      key={index} 
-                      item={item} 
-                      index={index} 
+                    <Row
+                      key={index}
+                      item={item}
+                      index={index}
                       onUpdate={() => {
 
                         const item = userList[index]
@@ -94,13 +101,10 @@ const App = () => {
                         setUpdateIndex(index)
                       }}
                       onRemove={() => {
-                        console.log('silinecek satır', index)
 
-                        const newList = userList.filter((item, rIndex) => {
-                          return index !== rIndex
-                        })
+                        setModalOn(true)
+                        setRemoveIndex(index)
 
-                        setUserList(newList)
                       }}
                     />
                   )
@@ -140,7 +144,7 @@ const App = () => {
               // EKLE
               const newList = [...userList, userInfo]
               setUserList(newList)
-  
+
             } else {
 
               // GÜNCELLE
@@ -162,6 +166,28 @@ const App = () => {
           }} />
         </div>
       </header>
+      <Modal
+        title="Örnek Başlık"
+        body="Örnek Body"
+        show={modalOn}
+        handleClose={(isConfirmed) => {
+
+          console.log('confirmed', isConfirmed)
+
+          setModalOn(false)
+
+          if (isConfirmed) {
+            const newList = userList.filter((item, rIndex) => {
+              return removeIndex !== rIndex
+            })
+  
+            setUserList(newList)
+          }
+
+          setRemoveIndex(-1)
+
+        }}
+      />
     </div>
   );
 }
