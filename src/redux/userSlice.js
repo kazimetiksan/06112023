@@ -17,7 +17,18 @@ const initialState = [{
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {}
+    reducers: {
+        setAll: (state, {payload}) => {
+            console.log('state', state)
+            console.log('data1', payload)
+
+            return payload
+        }
+    }
 })
+
+export const {
+    setAll
+} = userSlice.actions
 
 export default userSlice.reducer

@@ -23,14 +23,21 @@ import {
 } from 'react-router-dom'
 
 import {
-    useSelector // getter
+    useSelector, // getter
+    useDispatch // setter
 } from 'react-redux'
+
+import { 
+    setAll 
+} from './redux/userSlice';
 
 const Home = () => {
 
     const userList = useSelector(state => state.users)
 
     const navigate = useNavigate()
+
+    const dispatch = useDispatch()
 
     // const [userList, setUserList] = useState([])
 
@@ -79,6 +86,13 @@ const Home = () => {
             // PROMISE
             .then((response) => {
                 console.log('response', response.data)
+
+                // REDUX STATE UPDATE
+                
+                // const action = setAll(response.data)
+                // dispatch(action)
+
+                dispatch(setAll(response.data))
 
                 // setUserList(response.data)
                 setLoading(false)
