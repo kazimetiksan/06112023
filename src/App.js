@@ -1,5 +1,6 @@
 import Home from "./Home";
 import Detail from "./Detail";
+import NotFound from "./NotFound";
 
 import {
   BrowserRouter,
@@ -14,6 +15,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/view/:_id" element={<Detail />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
