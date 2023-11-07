@@ -1,4 +1,5 @@
 import Home from "./Home";
+import Detail from "./Detail";
 
 import {
   BrowserRouter,
@@ -12,6 +13,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/view/:_id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   )
