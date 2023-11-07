@@ -223,14 +223,33 @@ const App = () => {
         show={modalOn}
         handleConfirm={() => {
 
-          const newList = userList.filter((item, rIndex) => {
-            return removeIndex !== rIndex
-          })
+          setLoading(true)
 
-          setUserList(newList)
+          const url = `https://reactpm.azurewebsites.net/api/user/${userList[removeIndex]?._id}`
+          axios.delete(url)
+            .then((response) => {
+
+              console.log('removed', response.status)
+
+              if (response.status === 200) {
+
+                const newList = userList.filter((item, rIndex) => {
+                  return removeIndex !== rIndex
+                })
+
+                setUserList(newList)
+              }
+
+              setRemoveIndex(-1)
+
+              setLoading(false)
+
+            })
+            .catch((error) => {
+              console.log('error', error)
+            })
 
           setModalOn(false)
-          setRemoveIndex(-1)
 
         }}
         handleClose={() => {
