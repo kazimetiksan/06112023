@@ -13,7 +13,9 @@ import {
   Form
 } from 'react-bootstrap'
 
-import Modal from './Modal';
+import Modal from './Modal';  
+
+import axios from 'axios';
 
 // React Component1
 const App = () => {
@@ -47,12 +49,6 @@ const App = () => {
 
   }, [userInfo])
 
-  useEffect(() => {
-
-    console.log('constructor')
-
-  }, [])
-
   const setUserInput = (key, value) => {
 
     setUserInfo({
@@ -67,7 +63,26 @@ const App = () => {
     setUserInfo(userInfoTemplate)
   }
 
+  const loadData = () => {
 
+    const url = 'https://reactpm.azurewebsites.net/api/users'
+
+    axios.get(url)
+    // PROMISE
+    .then((response) => {
+      console.log('response', response.data)
+    })
+    .catch((error) => {
+      console.log('error', error)
+    })
+  }
+
+  useEffect(() => {
+
+    console.log('constructor')
+    loadData()
+
+  }, [])
 
   return (
     <div className="App">
