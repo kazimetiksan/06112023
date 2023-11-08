@@ -17,25 +17,21 @@ import axios from 'axios'
 //     age: "36"
 // }]
 
-const userSlice = createSlice({
+const userSliceV1 = createSlice({
     name: 'user',
-    initialState: {
-        list: [],
-        profile: undefined,
-        xauth: undefined
-    },
+    initialState: [],
     reducers: {
         setAll: (state, {payload}) => {
 
-            state.list = payload
+            return payload
         },
         add: (state, {payload}) => {
 
-            state.list = [...state.list, payload]
+            return [...state, payload]
         },
         update: (state, {payload}) => {
 
-            state.list = state.list.map((item) => {
+            return state.map((item) => {
 
                 if (item._id === payload._id) {
                     return payload
@@ -46,7 +42,7 @@ const userSlice = createSlice({
         },
         remove: (state, {payload:_id}) => {
 
-            state.list = state.list.filter(item => item._id !== _id)
+            return state.filter(item => item._id !== _id)
         }
 
     }
@@ -57,7 +53,7 @@ export const {
     add,
     update,
     remove
-} = userSlice.actions
+} = userSliceV1.actions
 
 // ASYNC
 
@@ -179,4 +175,4 @@ export const signUp = createAsyncThunk('signUp', (params, {getState, dispatch}) 
 
 })
 
-export default userSlice.reducer
+export default userSliceV1.reducer
