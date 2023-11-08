@@ -16,8 +16,6 @@ import {
 
 import Modal from './Modal';
 
-import axios from 'axios';
-
 import {
     useNavigate
 } from 'react-router-dom'
@@ -25,7 +23,8 @@ import {
 import {
     getAll,
     addNew,
-    updateUser
+    updateUser,
+    removeUser
 } from './redux/dispatch';
 
 import { 
@@ -205,32 +204,6 @@ const Home = () => {
                                 userInfo,
                                 _id
                             })
-
-                            // const url = `https://reactpm.azurewebsites.net/api/user/${userList[updateIndex]?._id}`
-                            // axios.patch(url, userInfo)
-                            //     .then((response) => {
-
-                            //         console.log('updated', response.data)
-
-                            //         const newList = userList.map((item, index) => {
-
-                            //             if (updateIndex === index) {
-                            //                 return response.data
-                            //             }
-
-                            //             return item
-                            //         })
-
-                            //         // setUserList(newList)
-
-                            //         setLoading(false)
-
-                            //     })
-                            //     .catch((error) => {
-                            //         console.log('error', error)
-                            //     })
-
-
                         }
 
                         resetForm()
@@ -246,29 +219,14 @@ const Home = () => {
 
                     setLoading(true)
 
-                    const url = `https://reactpm.azurewebsites.net/api/user/${userList[removeIndex]?._id}`
-                    axios.delete(url)
-                        .then((response) => {
+                    const _id = userList[removeIndex]?._id
 
-                            console.log('removed', response.status)
-
-                            if (response.status === 200) {
-
-                                const newList = userList.filter((item, rIndex) => {
-                                    return removeIndex !== rIndex
-                                })
-
-                                // setUserList(newList)
-                            }
-
-                            setRemoveIndex(-1)
-
+                    removeUser({
+                        callback: () => {
                             setLoading(false)
-
-                        })
-                        .catch((error) => {
-                            console.log('error', error)
-                        })
+                        },
+                        _id
+                    })
 
                     setModalOn(false)
 
@@ -277,15 +235,6 @@ const Home = () => {
 
                     setModalOn(false)
                     setRemoveIndex(-1)
-
-                    // if (isConfirmed) {
-                    //   const newList = userList.filter((item, rIndex) => {
-                    //     return removeIndex !== rIndex
-                    //   })
-
-                    //   setUserList(newList)
-                    // }
-
 
                 }}
             />

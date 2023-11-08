@@ -39,14 +39,20 @@ const userSlice = createSlice({
 
                 return item
             })
+        },
+        remove: (state, {payload:_id}) => {
+
+            return state.filter(item => item._id !== _id)
         }
+
     }
 })
 
 export const {
     setAll,
     add,
-    update
+    update,
+    remove
 } = userSlice.actions
 
 // ASYNC
@@ -113,6 +119,31 @@ export const updateUser = createAsyncThunk('updateUser', (params, {getState, dis
             console.log('thunk update', response.data)
 
             dispatch(update(response.data))
+
+            callback()
+        })
+        .catch((error) => {
+            console.log('error', error)
+        })
+
+})
+
+export const removeUser = createAsyncThunk('removeUser', (params, {getState, dispatch}) => {
+
+    const {
+        callback,
+        _id
+    } = params
+
+    const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+    axios.delete(url)
+        .then((response) => {
+
+            console.log('thunk remove', response.status)
+
+            if (response.status === 200) {
+                dispatch(remove(_id))
+            }
 
             callback()
         })
