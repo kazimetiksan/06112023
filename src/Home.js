@@ -96,9 +96,7 @@ const Home = () => {
     return (
         <div className="App">
             <header className="App-header">
-                {
-                    isLoggedIn() && <Header />
-                }
+                <Header />
                 <div>
                     <Table>
                         <thead>
