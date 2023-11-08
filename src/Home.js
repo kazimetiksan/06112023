@@ -24,7 +24,8 @@ import {
 
 import {
     getAll,
-    addNew
+    addNew,
+    updateUser
 } from './redux/dispatch';
 
 import { 
@@ -54,7 +55,7 @@ const Home = () => {
 
     useEffect(() => {
 
-        console.log('effect', userInfo)
+        // console.log('effect', userInfo)
 
     }, [userInfo])
 
@@ -86,7 +87,7 @@ const Home = () => {
 
     useEffect(() => {
 
-        console.log('constructor')
+        // console.log('constructor')
         loadData()
 
     }, [])
@@ -193,29 +194,41 @@ const Home = () => {
 
                             // GÜNCELLE
 
-                            const url = `https://reactpm.azurewebsites.net/api/user/${userList[updateIndex]?._id}`
-                            axios.patch(url, userInfo)
-                                .then((response) => {
+                            setLoading(true)
 
-                                    console.log('updated', response.data)
+                            const _id = userList[updateIndex]?._id
 
-                                    const newList = userList.map((item, index) => {
-
-                                        if (updateIndex === index) {
-                                            return response.data
-                                        }
-
-                                        return item
-                                    })
-
-                                    // setUserList(newList)
-
+                            updateUser({
+                                callback: () => {
                                     setLoading(false)
+                                },
+                                userInfo,
+                                _id
+                            })
 
-                                })
-                                .catch((error) => {
-                                    console.log('error', error)
-                                })
+                            // const url = `https://reactpm.azurewebsites.net/api/user/${userList[updateIndex]?._id}`
+                            // axios.patch(url, userInfo)
+                            //     .then((response) => {
+
+                            //         console.log('updated', response.data)
+
+                            //         const newList = userList.map((item, index) => {
+
+                            //             if (updateIndex === index) {
+                            //                 return response.data
+                            //             }
+
+                            //             return item
+                            //         })
+
+                            //         // setUserList(newList)
+
+                            //         setLoading(false)
+
+                            //     })
+                            //     .catch((error) => {
+                            //         console.log('error', error)
+                            //     })
 
 
                         }
