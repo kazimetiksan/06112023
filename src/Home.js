@@ -153,12 +153,6 @@ const Home = () => {
                 <div>
                     <Form.Control placeholder='Ad' value={userInfo.firstName} onChange={(e) => {
 
-                        // const firstName = e.target.value
-                        // setUserInfo({
-                        //   ...userInfo,
-                        //   firstName
-                        // })
-
                         setUserInput('firstName', e.target.value)
 
                     }} />

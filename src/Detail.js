@@ -2,20 +2,16 @@ import {
     useParams
 } from 'react-router-dom'
 
-import { useSelector } from 'react-redux'
+import { useRedux } from './redux/hooks'
 
 const Detail = () => {
 
     const {_id} = useParams()
     console.log('params', _id)
 
-    // const selectedUser = useSelector(state => {
-    //     return state.users.find((item) => {
-    //         return item._id === _id
-    //     })
-    // })
+    const {getUser} = useRedux()
 
-    const selectedUser = useSelector(state => state.users.find(item => item._id === _id))
+    const selectedUser = getUser(_id)
 
     console.log('selected user', selectedUser)
 
