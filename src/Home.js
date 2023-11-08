@@ -28,7 +28,8 @@ import {
 } from 'react-redux'
 
 import { 
-    setAll 
+    setAll,
+    getAll
 } from './redux/userSlice';
 
 const Home = () => {
@@ -78,28 +79,16 @@ const Home = () => {
 
     const loadData = () => {
 
-        const url = 'https://reactpm.azurewebsites.net/api/users'
-
         setLoading(true)
 
-        axios.get(url)
-            // PROMISE
-            .then((response) => {
-                console.log('response', response.data)
-
-                // REDUX STATE UPDATE
-                
-                // const action = setAll(response.data)
-                // dispatch(action)
-
-                dispatch(setAll(response.data))
-
-                // setUserList(response.data)
-                setLoading(false)
+        dispatch(
+            getAll({
+                callback: () => {
+                    console.log('callback')
+                    setLoading(false)
+                }
             })
-            .catch((error) => {
-                console.log('error', error)
-            })
+        )
     }
 
     useEffect(() => {
