@@ -54,9 +54,12 @@ const userSlice = createSlice({
 
             state.profile = profile
             state.xauth = xauth
+        },
+        signOut: (state, {payload}) => {
 
-            // console.log('payload', payload)
-        }
+            state.profile = undefined
+            state.xauth = undefined
+        },
     }
 })
 
@@ -65,7 +68,8 @@ export const {
     add,
     update,
     remove,
-    setProfile
+    setProfile,
+    signOut
 } = userSlice.actions
 
 // ASYNC

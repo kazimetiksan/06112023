@@ -17,3 +17,4 @@ export const removeUser = params => store.dispatch(userSlice.removeUser(params))
 
 export const signUp = params => store.dispatch(userSlice.signUp(params))
 export const signIn = params => store.dispatch(userSlice.signIn(params))
+export const signOut = params => store.dispatch(userSlice.signOut(params))
