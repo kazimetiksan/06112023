@@ -23,7 +23,8 @@ import {
 } from 'react-router-dom'
 
 import {
-    getAll
+    getAll,
+    addNew
 } from './redux/dispatch';
 
 import { 
@@ -181,19 +182,12 @@ const Home = () => {
 
                             setLoading(true)
 
-                            const url = 'https://reactpm.azurewebsites.net/api/user'
-                            axios.post(url, userInfo)
-                                .then((response) => {
-
-                                    const newList = [...userList, response.data]
-                                    // setUserList(newList)
-
+                            addNew({
+                                callback: () => {
                                     setLoading(false)
-
-                                })
-                                .catch((error) => {
-                                    console.log('error', error)
-                                })
+                                },
+                                userInfo
+                            })
 
                         } else {
 

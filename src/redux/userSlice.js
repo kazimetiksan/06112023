@@ -22,16 +22,19 @@ const userSlice = createSlice({
     initialState: [],
     reducers: {
         setAll: (state, {payload}) => {
-            console.log('state', state)
-            console.log('data1', payload)
 
             return payload
+        },
+        add: (state, {payload}) => {
+
+            return [...state, payload]
         }
     }
 })
 
 export const {
-    setAll
+    setAll,
+    add
 } = userSlice.actions
 
 // ASYNC
@@ -53,6 +56,27 @@ export const getAll = createAsyncThunk('getAll', (params, {getState, dispatch}) 
             console.log('thunk response', response.data)
             
             dispatch(setAll(response.data))
+
+            callback()
+        })
+        .catch((error) => {
+            console.log('error', error)
+        })
+
+})
+
+export const addNew = createAsyncThunk('addNew', (params, {getState, dispatch}) => {
+
+    const {
+        callback,
+        userInfo
+    } = params
+
+    const url = 'https://reactpm.azurewebsites.net/api/user'
+    axios.post(url, userInfo)
+        .then((response) => {
+
+            dispatch(add(response.data))
 
             callback()
         })
