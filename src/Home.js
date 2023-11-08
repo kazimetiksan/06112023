@@ -27,10 +27,14 @@ import {
     useDispatch // setter
 } from 'react-redux'
 
-import { 
+import {
     setAll,
-    getAll
+    // getAll
 } from './redux/userSlice';
+
+import {
+    getAll
+} from './redux/dispatch';
 
 const Home = () => {
 
@@ -81,14 +85,12 @@ const Home = () => {
 
         setLoading(true)
 
-        dispatch(
-            getAll({
-                callback: () => {
-                    console.log('callback')
-                    setLoading(false)
-                }
-            })
-        )
+        getAll({
+            callback: () => {
+                console.log('callback')
+                setLoading(false)
+            }
+        })
     }
 
     useEffect(() => {
