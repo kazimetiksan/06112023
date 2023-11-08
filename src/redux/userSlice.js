@@ -67,7 +67,7 @@ export const getAll = createAsyncThunk('getAll', (params, {getState, dispatch}) 
         callback
     } = params
 
-    const url = 'https://reactpm.azurewebsites.net/api/users'
+    const url = '/api/users'
     axios.get(url)
         // PROMISE
         .then((response) => {
@@ -90,7 +90,7 @@ export const addNew = createAsyncThunk('addNew', (params, {getState, dispatch}) 
         userInfo
     } = params
 
-    const url = 'https://reactpm.azurewebsites.net/api/user'
+    const url = '/api/user'
     axios.post(url, userInfo)
         .then((response) => {
 
@@ -112,7 +112,7 @@ export const updateUser = createAsyncThunk('updateUser', (params, {getState, dis
         _id
     } = params
 
-    const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+    const url = `/api/user/${_id}`
     axios.patch(url, userInfo)
         .then((response) => {
 
@@ -135,7 +135,7 @@ export const removeUser = createAsyncThunk('removeUser', (params, {getState, dis
         _id
     } = params
 
-    const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+    const url = `/api/user/${_id}`
     axios.delete(url)
         .then((response) => {
 
