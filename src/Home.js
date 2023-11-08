@@ -23,28 +23,18 @@ import {
 } from 'react-router-dom'
 
 import {
-    useSelector, // getter
-    useDispatch // setter
-} from 'react-redux'
-
-import {
-    setAll,
-    // getAll
-} from './redux/userSlice';
-
-import {
     getAll
 } from './redux/dispatch';
 
+import { 
+    useRedux 
+} from './redux/hooks';
+
 const Home = () => {
 
-    const userList = useSelector(state => state.users)
+    const {userList} = useRedux()
 
     const navigate = useNavigate()
-
-    const dispatch = useDispatch()
-
-    // const [userList, setUserList] = useState([])
 
     const userInfoTemplate = {
         firstName: "",
