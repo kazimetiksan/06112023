@@ -8,7 +8,11 @@ import { useState, useEffect } from "react"
 
 import { signUp } from "./redux/dispatch"
 
+import { useNavigate } from "react-router-dom"
+
 const SignUp = () => {
+
+    const navigate = useNavigate()
 
     const [signupInfo, setSignupInfo] = useState({
         firstName: "",
@@ -54,7 +58,7 @@ const SignUp = () => {
 
                 signUp({
                     callback: () => {
-
+                        navigate("/")
                     },
                     signupInfo
                 })

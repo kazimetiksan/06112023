@@ -27,13 +27,15 @@ import {
     removeUser
 } from './redux/dispatch';
 
-import { 
-    useRedux 
+import {
+    useRedux
 } from './redux/hooks';
+
+import Header from './Header';
 
 const Home = () => {
 
-    const {userList} = useRedux()
+    const { userList, isLoggedIn, profile } = useRedux()
 
     const navigate = useNavigate()
 
@@ -94,6 +96,9 @@ const Home = () => {
     return (
         <div className="App">
             <header className="App-header">
+                {
+                    isLoggedIn() && <Header />
+                }
                 <div>
                     <Table>
                         <thead>

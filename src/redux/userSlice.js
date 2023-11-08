@@ -47,8 +47,16 @@ const userSlice = createSlice({
         remove: (state, {payload:_id}) => {
 
             state.list = state.list.filter(item => item._id !== _id)
-        }
+        },
+        setProfile: (state, {payload}) => {
 
+            const {profile, xauth} = payload
+
+            state.profile = profile
+            state.xauth = xauth
+
+            // console.log('payload', payload)
+        }
     }
 })
 
@@ -56,7 +64,8 @@ export const {
     setAll,
     add,
     update,
-    remove
+    remove,
+    setProfile
 } = userSlice.actions
 
 // ASYNC
@@ -168,8 +177,40 @@ export const signUp = createAsyncThunk('signUp', (params, {getState, dispatch}) 
     axios.post(url, signupInfo)
         .then((response) => {
 
-            console.log('thunk signup data', response.data)
-            console.log('thunk signup headers', response.headers)
+            dispatch(
+                setProfile({
+                    profile: response.data,
+                    xauth: response.headers.xauth
+                })
+            )
+
+            callback()
+        })
+        .catch((error) => {
+            console.log('error', error)
+        })
+
+})
+
+export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) => {
+
+    const {
+        callback,
+        signinInfo
+    } = params
+
+    const url = `/api/signin`
+    axios.post(url, signinInfo)
+        .then((response) => {
+
+            console.log('response', response.data)
+
+            dispatch(
+                setProfile({
+                    profile: response.data,
+                    xauth: response.headers.xauth
+                })
+            )
 
             callback()
         })
