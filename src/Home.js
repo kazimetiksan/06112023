@@ -35,7 +35,7 @@ import Header from './Header';
 
 const Home = () => {
 
-    const { userList, isLoggedIn, profile } = useRedux()
+    const { userList } = useRedux()
 
     const navigate = useNavigate()
 

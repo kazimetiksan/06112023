@@ -59,7 +59,8 @@ const userSlice = createSlice({
 
             state.profile = undefined
             state.xauth = undefined
-        },
+        }
+
     }
 })
 
@@ -174,17 +175,20 @@ export const signUp = createAsyncThunk('signUp', (params, {getState, dispatch}) 
 
     const {
         callback,
-        signupInfo
+        userInfo
     } = params
 
     const url = `/api/signup`
-    axios.post(url, signupInfo)
+    axios.post(url, userInfo)
         .then((response) => {
+
+            const profile = response.data
+            const xauth = response.headers.xauth
 
             dispatch(
                 setProfile({
-                    profile: response.data,
-                    xauth: response.headers.xauth
+                    profile,
+                    xauth
                 })
             )
 
@@ -200,19 +204,20 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
 
     const {
         callback,
-        signinInfo
+        userInfo
     } = params
 
     const url = `/api/signin`
-    axios.post(url, signinInfo)
+    axios.post(url, userInfo)
         .then((response) => {
 
-            console.log('response', response.data)
+            const profile = response.data
+            const xauth = response.headers.xauth
 
             dispatch(
                 setProfile({
-                    profile: response.data,
-                    xauth: response.headers.xauth
+                    profile,
+                    xauth
                 })
             )
 

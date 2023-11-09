@@ -1,6 +1,6 @@
-import { useRedux } from "./redux/hooks"
-
 import Button from "./Button"
+
+import { useRedux } from "./redux/hooks"
 
 import { signOut } from "./redux/dispatch"
 
@@ -10,28 +10,34 @@ const Header = () => {
 
     const navigate = useNavigate()
 
-    const { profile, isLoggedIn } = useRedux()
+    const {
+        isLoggedIn,
+        profile
+    } = useRedux()
 
     return (
         <div style={{
             margin: 20
         }}>
-        {
-            isLoggedIn() ? (
-                <div>
-                    <div>Hello {profile?.firstName} {profile?.lastName}</div>
-                    <Button variant="danger" title="Çıkış Yap" onClick={() => {
-                        signOut()
-                    }} />
-                </div>
-            ) : (
-                <div>
-                    <Button variant="success" title="Giriş Yap" onClick={() => {
-                        navigate("/signin")
-                    }} />
-                </div>
-            )
-        }
+            {
+                isLoggedIn() ? (
+                    <div>
+                        Hoşgeldin {profile?.firstName} {profile?.lastName}
+                        <Button title="Çıkış Yap" variant="danger" onClick={() => {
+                            // signOut
+                            signOut()
+                        }} />
+                    </div>
+                ) : (
+                    <div>
+                        <Button title="Giriş Yap" variant="success" onClick={() => {
+                            // signIn
+                            navigate("/signin")
+                        }} />
+                    </div>
+                )
+            }
+
         </div>
     )
 }

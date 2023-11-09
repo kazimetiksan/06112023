@@ -1,28 +1,30 @@
-import { 
-    Form 
+import {
+    Form
 } from "react-bootstrap"
 
 import Button from './Button'
 
-import { useState, useEffect } from "react"
-
-import { signIn } from "./redux/dispatch"
+import { useState } from "react"
 
 import { useNavigate } from "react-router-dom"
+
+import {
+    signIn
+} from './redux/dispatch'
 
 const SignIn = () => {
 
     const navigate = useNavigate()
 
-    const [signinInfo, setSigninInfo] = useState({
+    const [userInfo, setUserInfo] = useState({
         email: "",
         password: ""
     })
 
     const setUserInput = (key, value) => {
 
-        setSigninInfo({
-            ...signinInfo,
+        setUserInfo({
+            ...userInfo,
             [key]: value
         })
     }
@@ -31,10 +33,10 @@ const SignIn = () => {
         <div style={{
             margin: 50
         }}>
-            <Form.Control placeholder="E-Mail" value={signinInfo.email} onChange={(e) => {
+            <Form.Control placeholder="E-Mail" value={userInfo.email} onChange={(e) => {
                 setUserInput('email', e.target.value)
             }} />
-            <Form.Control placeholder="Şifre" value={signinInfo.password} onChange={(e) => {
+            <Form.Control placeholder="Şifre" value={userInfo.password} onChange={(e) => {
                 setUserInput('password', e.target.value)
             }} />
             <Button variant="primary" title="Giriş Yap" onClick={() => {
@@ -43,8 +45,9 @@ const SignIn = () => {
                     callback: () => {
                         navigate("/")
                     },
-                    signinInfo
+                    userInfo
                 })
+
             }} />
         </div>
     )

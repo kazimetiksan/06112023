@@ -4,17 +4,19 @@ import {
 
 import Button from './Button'
 
-import { useState, useEffect } from "react"
-
-import { signUp } from "./redux/dispatch"
+import { useState } from "react"
 
 import { useNavigate } from "react-router-dom"
+
+import {
+    signUp
+} from './redux/dispatch'
 
 const SignUp = () => {
 
     const navigate = useNavigate()
 
-    const [signupInfo, setSignupInfo] = useState({
+    const [userInfo, setUserInfo] = useState({
         firstName: "",
         lastName: "",
         email: "",
@@ -22,15 +24,10 @@ const SignUp = () => {
         age: ""
     })
 
-    useEffect(() => {
-
-        console.log('signup Info', signupInfo)
-    }, [signupInfo])
-
     const setUserInput = (key, value) => {
 
-        setSignupInfo({
-            ...signupInfo,
+        setUserInfo({
+            ...userInfo,
             [key]: value
         })
     }
@@ -39,29 +36,29 @@ const SignUp = () => {
         <div style={{
             margin: 50
         }}>
-            <Form.Control placeholder="E-Mail" value={signupInfo.email} onChange={(e) => {
+            <Form.Control placeholder="E-Mail" value={userInfo.email} onChange={(e) => {
                 setUserInput('email', e.target.value)
             }} />
-            <Form.Control placeholder="Şifre" value={signupInfo.password} onChange={(e) => {
+            <Form.Control placeholder="Şifre" value={userInfo.password} onChange={(e) => {
                 setUserInput('password', e.target.value)
             }} />
-            <Form.Control placeholder="Ad" value={signupInfo.firstName} onChange={(e) => {
+            <Form.Control placeholder="Ad" value={userInfo.firstName} onChange={(e) => {
                 setUserInput('firstName', e.target.value)
             }} />
-            <Form.Control placeholder="Soyad" value={signupInfo.lastName} onChange={(e) => {
+            <Form.Control placeholder="Soyad" value={userInfo.lastName} onChange={(e) => {
                 setUserInput('lastName', e.target.value)
             }} />
-            <Form.Control placeholder="Yaş" value={signupInfo.age} onChange={(e) => {
+            <Form.Control placeholder="Yaş" value={userInfo.age} onChange={(e) => {
                 setUserInput('age', e.target.value)
             }} />
             <Button variant="primary" title="Kaydet" onClick={() => {
 
                 signUp({
                     callback: () => {
-                        navigate("/")
+                        navigate("/signin")
                     },
-                    signupInfo
-                })
+                    userInfo
+                })                
             }} />
         </div>
     )
