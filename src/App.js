@@ -5,6 +5,8 @@ import NotFound from "./NotFound";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 
+import Verify from "./Verify";
+
 import {
   BrowserRouter,
   Routes,
@@ -27,7 +29,7 @@ const App = () => {
       xauth
     })
   }
-  console.log('xauth', xauth)
+  // console.log('xauth', xauth)
 
   return (
     <Provider store={store}>
@@ -37,6 +39,7 @@ const App = () => {
           <Route path="/view/:_id" element={<Detail />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/verify/:xauth" element={<Verify />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

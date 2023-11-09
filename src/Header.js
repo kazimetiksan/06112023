@@ -23,6 +23,7 @@ const Header = () => {
                 isLoggedIn() ? (
                     <div>
                         Hoşgeldin {profile?.firstName} {profile?.lastName}
+                        {!profile?.isVerified && "Henüz Doğrulanmadı"}
                         <Button title="Çıkış Yap" variant="danger" onClick={() => {
                             // signOut
                             signOut()
