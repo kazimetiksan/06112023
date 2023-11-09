@@ -17,7 +17,17 @@ import {
 
 import store from "./redux/store";
 
+import { getProfile } from "./redux/dispatch";
+
 const App = () => {
+
+  const xauth = sessionStorage.getItem('xauth')
+  if (xauth !== null) {
+    getProfile({
+      xauth
+    })
+  }
+  console.log('xauth', xauth)
 
   return (
     <Provider store={store}>

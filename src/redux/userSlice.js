@@ -54,11 +54,16 @@ const userSlice = createSlice({
 
             state.profile = profile
             state.xauth = xauth
+
+            // session cache
+            sessionStorage.setItem('xauth', xauth)
         },
         signOut: (state, {payload}) => {
 
             state.profile = undefined
             state.xauth = undefined
+
+            sessionStorage.removeItem('xauth')
         }
 
     }
@@ -213,6 +218,40 @@ export const signIn = createAsyncThunk('signIn', (params, {getState, dispatch}) 
 
             const profile = response.data
             const xauth = response.headers.xauth
+
+            dispatch(
+                setProfile({
+                    profile,
+                    xauth
+                })
+            )
+
+            callback()
+        })
+        .catch((error) => {
+            console.log('error', error)
+        })
+
+})
+
+export const getProfile = createAsyncThunk('getProfile', (params, {getState, dispatch}) => {
+
+    const {
+        callback=() => {},
+        xauth
+    } = params
+
+    const url = `/api/me`
+    axios.get(url, {
+        headers: {
+            xauth
+        }
+    })
+        .then((response) => {
+
+            console.log('user profile', response.data)
+
+            const profile = response.data
 
             dispatch(
                 setProfile({
